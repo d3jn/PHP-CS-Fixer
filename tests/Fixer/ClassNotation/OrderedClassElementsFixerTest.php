@@ -879,6 +879,62 @@ EOT
         ];
     }
 
+    public function provideBlankLineBugCases()
+    {
+        yield [
+            [
+                'sortAlgorithm' => 'alpha',
+            ],
+            '<?php
+            class Foo
+            {
+                /**
+                 * Do bar.
+                 */
+                public function bar()
+                {
+                }
+
+                /**
+                 * Do qux.
+                 */
+                public function qux()
+                {
+                }
+            }',
+            '<?php
+            class Foo
+            {
+                /**
+                 * Do qux.
+                 */
+                public function qux()
+                {
+                }
+
+                /**
+                 * Do bar.
+                 */
+                public function bar()
+                {
+                }
+            }',
+        ];
+    }
+
+    /**
+     * @param array       $configuration
+     * @param string      $expected
+     * @param null|string $input
+     *
+     * @dataProvider provideBlankLineBugCases
+     */
+    public function testBlankLineBug(array $configuration, $expected, $input = null)
+    {
+        $this->fixer->configure($configuration);
+        $this->doTest($expected, $input);
+    }
+
     public function testWrongConfig()
     {
         $this->expectException(\PhpCsFixer\ConfigurationException\InvalidFixerConfigurationException::class);
