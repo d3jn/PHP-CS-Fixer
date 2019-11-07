@@ -888,16 +888,10 @@ EOT
             '<?php
             class Foo
             {
-                /**
-                 * Do bar.
-                 */
                 public function bar()
                 {
                 }
 
-                /**
-                 * Do qux.
-                 */
                 public function qux()
                 {
                 }
@@ -905,16 +899,10 @@ EOT
             '<?php
             class Foo
             {
-                /**
-                 * Do qux.
-                 */
                 public function qux()
                 {
                 }
 
-                /**
-                 * Do bar.
-                 */
                 public function bar()
                 {
                 }
@@ -923,13 +911,13 @@ EOT
     }
 
     /**
-     * @param array       $configuration
-     * @param string      $expected
-     * @param null|string $input
+     * @param array  $configuration
+     * @param string $expected
+     * @param string $input
      *
      * @dataProvider provideBlankLineBugCases
      */
-    public function testBlankLineBug(array $configuration, $expected, $input = null)
+    public function testBlankLineBug(array $configuration, $expected, $input)
     {
         $this->fixer->configure($configuration);
         $this->doTest($expected, $input);
